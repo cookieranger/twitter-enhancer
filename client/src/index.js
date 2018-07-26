@@ -1,24 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import "basscss/css/basscss.css";
 import "flexboxgrid";
-import './index.scss';
+import "./index.scss";
 
-import registerServiceWorker from './registerServiceWorker';
-import theme from './theme'
-import App from './app'
+import registerServiceWorker from "./registerServiceWorker";
+import theme from "./theme";
+import App from "./app";
 
 // material ui
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
 ReactDOM.render(
-  <MuiThemeProvider muiTheme={theme}>
+  <MuiThemeProvider theme={theme}>
     <div className="app">
-      <App/>
+      <App />
     </div>
   </MuiThemeProvider>,
   document.getElementById("root")
 );
 
 registerServiceWorker();
-
