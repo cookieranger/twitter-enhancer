@@ -1,0 +1,27 @@
+{
+  "name": "memory_game",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "basscss": "^8.0.3",
+    "custom-react-scripts": "0.2.1",
+    "express": "^4.16.2",
+    "flexboxgrid": "^6.3.1",
+    "material-ui": "^1.0.0-beta.17",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "scripts": {
+    "regenerate": "./src/cardimgs/getcards",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test2": "find src | entr jest --env=jsdom",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.1.0",
+    "jest": "^21.2.1"
+  },
+  "proxy": "http://localhost:3001/"
+}
