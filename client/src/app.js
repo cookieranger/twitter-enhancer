@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 // import ToolBar from "@material-ui/core/ToolBar";
-import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
+
 import Chip from "@material-ui/core/Chip";
 
 import { fetchSearch } from "./requests";
@@ -28,23 +33,40 @@ class App extends Component {
     this.setState({ searchTerm });
     fetchSearch({ searchTerm }).then(result => {
       console.log("***search result: ", result);
-      this.setState({ searchResults: result });
+      // this.setState({ searchResults: result });
     }, console.error);
   };
 
   render() {
     return (
       <div className="App">
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color="default">
           {/* <ToolBar> */}
-          <TextField
-            label="Search..."
-            value={this.state.searchTerm}
-            onChange={this.handleChange}
-          />
+          <div className="clearfix">
+            <div className="col col-6">
+              <Input
+                className="my2 mx2"
+                placeholder="Search..."
+                value={this.state.searchTerm}
+                onChange={this.handleChange}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon color="primary" />
+                  </InputAdornment>
+                }
+              />
+            </div>
+            {/* <div className="col col-6">
+              <Button color="primary" className>
+                Search
+              </Button>
+            </div> */}
+          </div>
           {/* </ToolBar> */}
         </AppBar>
-        <HashTags hashtags={this.state.hashtags} />
+        <h3>Hashtags</h3>
+        <Hashtags hashtags={this.state.hashtags} />
+        <h3>Search Results</h3>
         <SearchResults results={this.state.searchResults} />
       </div>
     );
@@ -53,21 +75,28 @@ class App extends Component {
 
 const SearchResults = ({ results }) => {
   return (
-    <div className="Results">
+    <ul className="Results p1 mt0">
       {results.map((result, index) => <Result key={index} result={result} />)}
-    </div>
+    </ul>
   );
 };
 
 const Result = ({}) => {
-  return <div className="Result px3 py1 ">Result</div>;
+  return <li className="Result px3 py1 ">Result</li>;
 };
 
-const HashTags = ({ hashtags }) => {
+const Hashtags = ({ hashtags }) => {
   return (
-    <div>
+    <div className="p1 clearfix">
       {hashtags.map(hashtag => (
-        <Chip key={hashtag.name} label={`${hashtag.name} - ${hashtag.count}`} />
+        <div className="col col-3">
+          {/* TODO: make these links clickable */}
+          <Chip
+            className="Hashtag mr2 mb1"
+            key={hashtag.name}
+            label={`#${hashtag.name} - ${hashtag.count}`}
+          />
+        </div>
       ))}
     </div>
   );
