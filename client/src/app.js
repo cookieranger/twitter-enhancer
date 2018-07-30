@@ -7,7 +7,9 @@ import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 
-import Chip from "@material-ui/core/Chip";
+// components
+import Hashtags from "./components/Hashtags";
+import SearchResults from "./components/SearchResults";
 
 import { fetchSearch } from "./requests";
 
@@ -42,10 +44,10 @@ class App extends Component {
       <div className="App">
         <AppBar position="static" color="default">
           {/* <ToolBar> */}
-          <div className="clearfix">
-            <div className="col col-6">
+          <div className="py2 px3">
+            <div className="">
               <Input
-                className="my2 mx2"
+                className="stretch-x"
                 placeholder="Search..."
                 value={this.state.searchTerm}
                 onChange={this.handleChange}
@@ -56,6 +58,7 @@ class App extends Component {
                 }
               />
             </div>
+            {/* TODO: remove */}
             {/* <div className="col col-6">
               <Button color="primary" className>
                 Search
@@ -64,42 +67,13 @@ class App extends Component {
           </div>
           {/* </ToolBar> */}
         </AppBar>
-        <h3>Hashtags</h3>
+        <h3 className="px2 py1">Hashtags</h3>
         <Hashtags hashtags={this.state.hashtags} />
-        <h3>Search Results</h3>
+
         <SearchResults results={this.state.searchResults} />
       </div>
     );
   }
 }
-
-const SearchResults = ({ results }) => {
-  return (
-    <ul className="Results p1 mt0">
-      {results.map((result, index) => <Result key={index} result={result} />)}
-    </ul>
-  );
-};
-
-const Result = ({}) => {
-  return <li className="Result px3 py1 ">Result</li>;
-};
-
-const Hashtags = ({ hashtags }) => {
-  return (
-    <div className="p1 clearfix">
-      {hashtags.map(hashtag => (
-        <div className="col col-3">
-          {/* TODO: make these links clickable */}
-          <Chip
-            className="Hashtag mr2 mb1"
-            key={hashtag.name}
-            label={`#${hashtag.name} - ${hashtag.count}`}
-          />
-        </div>
-      ))}
-    </div>
-  );
-};
 
 export default App;
