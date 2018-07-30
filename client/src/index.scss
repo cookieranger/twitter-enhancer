@@ -40,3 +40,12 @@ h3 {
 .white-text {
   color: white;
 }
+.inactive {
+  pointer-events: none;
+}
+
+/** important */
+.i-mx0_5 {
+  margin-left: 0.25rem !important;
+  margin-right: 0.25rem !important;
+}

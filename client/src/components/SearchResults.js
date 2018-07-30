@@ -1,8 +1,37 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+
+const expand = n => [...Array(n).keys()];
+
+// TODO: fill out how this pagination works.
+const Pagination = ({ allPages, currentPage }) => {
+  return (
+    <div className="Pagination center pb1">
+      {expand(allPages)
+        .map(page => +page + 1)
+        .map(page => (
+          <Button
+            color={currentPage === page ? "primary" : "default"}
+            mini
+            key={page}
+            variant="fab"
+            classes={{
+              root: `i-mx0_5 ${currentPage === page ? "inactive" : ""}`
+            }}
+            style={{ width: 20, height: 20, minHeight: 20 }}
+          >
+            {page}
+          </Button>
+        ))}
+    </div>
+  );
+};
 
 const SearchResults = ({ results }) => {
   return (
     <div className="px2">
+      <Pagination allPages={3} currentPage={2} />
+
       <ul className="Results px2 py1 mt0 blue-background rounded-5 list-reset">
         {results.map((result, index) => <Result key={index} result={result} />)}
       </ul>
