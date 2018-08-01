@@ -50,6 +50,7 @@ class App extends Component {
   };
 
   handleClickHashTag = tag => {
+    tag = tag.slice(1);
     this.setState({ searchTerm: tag });
     this.handleSearch(tag);
   };
@@ -64,7 +65,7 @@ class App extends Component {
               <Input
                 className="stretch-x"
                 placeholder="Search..."
-                value={this.state.tag}
+                value={this.state.searchTerm}
                 onChange={this.handleChange}
                 startAdornment={
                   <InputAdornment position="start">
