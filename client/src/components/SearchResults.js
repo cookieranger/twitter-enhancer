@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import moment from "moment";
 
 const expand = n => [...Array(n).keys()];
 
@@ -48,7 +49,10 @@ const Result = ({
       <div>
         <b className="pr2">{title}</b>
         <i>
-          @{author} - {created_at}
+          @{author} -{" "}
+          {moment(created_at)
+            .startOf("day")
+            .calendar()}
         </i>
       </div>
       <br />
