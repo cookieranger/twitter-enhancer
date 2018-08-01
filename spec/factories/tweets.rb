@@ -13,10 +13,10 @@
 
 FactoryBot.define do
   factory :tweet do
-    author Faker::StarWars.character
-    title Faker::StarWars.quote
-    img_url Faker::Avatar.image
-    content Faker::Lorem.paragraphs.join(' ')
+    sequence(:author) { Faker::StarWars.character }
+    sequence(:title) { Faker::StarWars.quote }
+    sequence(:img_url) { Faker::Avatar.image }
+    sequence(:content) { Faker::Lorem.paragraphs.join(' ') }
 
     trait :with_hashtags do
       hashtags { [FactoryBot.build(:hashtag)] }

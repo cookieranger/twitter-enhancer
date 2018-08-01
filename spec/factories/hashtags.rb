@@ -8,6 +8,6 @@
 
 FactoryBot.define do
   factory :hashtag do
-    name Faker::StarWars.planet
+    sequence(:name) { Faker::StarWars.planet }
   end
 end

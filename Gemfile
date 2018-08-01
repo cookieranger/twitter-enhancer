@@ -13,6 +13,7 @@ gem 'factory_bot_rails'
 gem 'rspec-rails'
 gem 'annotate'
 gem 'pry-rails' # rails console will open pry
+gem 'kaminari'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
