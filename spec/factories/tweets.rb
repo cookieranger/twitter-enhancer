@@ -16,10 +16,19 @@ FactoryBot.define do
     sequence(:author) { Faker::StarWars.character }
     sequence(:title) { Faker::StarWars.quote }
     sequence(:img_url) { Faker::Avatar.image }
+
+
     sequence(:content) { Faker::Lorem.paragraphs.join(' ') }
 
-    trait :with_hashtags do
-      hashtags { [FactoryBot.build(:hashtag)] }
+    after(:build) do |tweet|
+      tags = tweet.hashtags.map(&:name)
+      paragraphs = Faker::Lorem.paragraphs(tags.count + 1)
+
+      tweet.content = tags.flat_map.with_index do |_, index|
+        [tags[index], paragraphs[index]]
+      end.join(' ')
     end
+
+
   end
 end

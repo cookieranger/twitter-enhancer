@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 
 const expand = n => [...Array(n).keys()];
 
-// TODO: fill out how this pagination works.
+// NOTE: not using
 const Pagination = ({ allPages, currentPage }) => {
   return (
     <div className="Pagination center pb1">
@@ -27,37 +27,39 @@ const Pagination = ({ allPages, currentPage }) => {
   );
 };
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, onClickHashTag }) => {
   return (
     <div className="px2">
-      <Pagination allPages={3} currentPage={2} />
-
       <ul className="Results px2 py1 mt0 blue-background rounded-5 list-reset">
-        {results.map((result, index) => <Result key={index} result={result} />)}
+        {results.map((tweet, index) => (
+          <Result key={index} tweet={tweet} onClickHashTag={onClickHashTag} />
+        ))}
       </ul>
     </div>
   );
 };
 
-const Result = ({}) => {
+const Result = ({
+  tweet: { author, content, hashtags, img_url, title, created_at },
+  onClickHashTag
+}) => {
   return (
     <li className="Result px3 py1 white-text">
       <div>
-        <b>Title</b> @author - 12 hours ago
+        <b className="pr2">{title}</b>
+        <i>
+          @{author} - {created_at}
+        </i>
       </div>
-      <div>
-        paragraph Ullam porro deserunt qui corrupti consectetur rerum neque. Est
-        neque rerum et inventore ea doloremque enim sint. Est numquam
-        consequatur occaecati qui voluptatem. Rerum rerum est velit
-        exercitationem quia voluptas et ipsam. Quos neque ut quaerat eos.
-        Delectus est iste ut voluptate voluptatem quo. In error illum totam.
-        Quam eveniet non sed. Facere omnis voluptatem quo beatae vitae in. Harum
-        iste deserunt at et. Quis vel repellat deleniti aperiam fugit. Quae
-        distinctio nam reiciendis quibusdam inventore qui. Laborum corrupti
-        consequatur molestiae voluptas inventore.
-      </div>
+      <br />
+      <div
+        className="Result-content"
+        dangerouslySetInnerHTML={{
+          __html: content.replace(/#(\w*)/g, hashtag => `<b>${hashtag}</b>`)
+        }}
+      />
       <div className="py1">
-        <img src="http://via.placeholder.com/350x150" />
+        <img src={img_url} />
       </div>
     </li>
   );

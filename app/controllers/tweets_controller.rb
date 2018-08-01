@@ -1,10 +1,10 @@
 class TweetsController < ApplicationController
-
+  LIMIT = 10
   def index
-    if searchTerms
+    tweets = if searchTerms && searchTerms.present?
       search_results
     else
-      Tweet.first(100)
+      Tweet.limit(LIMIT)
     end
 
     render json: tweets.map(&:serialize)
@@ -13,13 +13,10 @@ class TweetsController < ApplicationController
   def search_results
     # TODO: include searchTerms searching on hashtags
 
-    tweets = Tweet.where(
-      'title ilike ?',
-      "%#{searchTerms}$%"
-    ).first(100)
+    tweets = Tweet.with_term(searchTerms).limit(LIMIT)
   end
 
   def searchTerms
-    params.permit(:searchTerms)[:searchTerms]
+    @searchTerms ||= params.permit(:searchTerms)[:searchTerms]
   end
 end

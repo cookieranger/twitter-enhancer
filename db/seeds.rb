@@ -17,9 +17,11 @@ hashtags = 20.times.map {
   FactoryBot.create(:hashtag)
 }
 
+
 tweets = 1000.times.map {
   FactoryBot.create(:tweet,
     hashtags: rand(2..5).times.map do |n|
+
       hashtags[rand(0..19)]
     end
   )

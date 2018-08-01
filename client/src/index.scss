@@ -19,6 +19,11 @@ body {
   &:nth-child(n + 2) {
     border-top: 1px solid #ccc;
   }
+  .Result-content {
+    b {
+      color: #bbf;
+    }
+  }
 }
 
 h3 {
@@ -42,6 +47,9 @@ h3 {
 }
 .inactive {
   pointer-events: none;
+}
+.clickable {
+  cursor: pointer;
 }
 
 /** important */
