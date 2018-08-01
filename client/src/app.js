@@ -59,12 +59,11 @@ class App extends Component {
     return (
       <div className="App">
         <AppBar position="static" color="default">
-          {/* <ToolBar> */}
           <div className="py2 px3">
             <div className="">
               <Input
                 className="stretch-x"
-                placeholder="Search..."
+                placeholder="Search Star Wars Tweets with 1 or more keywords..."
                 value={this.state.searchTerm}
                 onChange={this.handleChange}
                 startAdornment={
@@ -75,7 +74,6 @@ class App extends Component {
               />
             </div>
           </div>
-          {/* </ToolBar> */}
         </AppBar>
         <h3 className="px2 py1">Hashtags</h3>
         <Hashtags
