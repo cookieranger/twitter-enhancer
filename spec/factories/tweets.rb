@@ -22,11 +22,13 @@ FactoryBot.define do
 
     after(:build) do |tweet|
       tags = tweet.hashtags.map(&:name)
-      paragraphs = Faker::Lorem.paragraphs(tags.count + 1)
+      unless tags.count.zero?
+        paragraphs = Faker::Lorem.paragraphs(tags.count + 1)
 
-      tweet.content = tags.flat_map.with_index do |_, index|
-        [tags[index], paragraphs[index]]
-      end.join(' ')
+        tweet.content = tags.flat_map.with_index do |_, index|
+          [tags[index], paragraphs[index]]
+        end.join(' ')
+      end
     end
 
 

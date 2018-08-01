@@ -10,6 +10,9 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+def term_to_query(term)
+  "%#{term}%"
+end
 
 class Tweet < ApplicationRecord
   paginates_per 100
@@ -18,13 +21,18 @@ class Tweet < ApplicationRecord
   has_many :tweet_hashtags
   has_many :hashtags, through: :tweet_hashtags
 
-  scope :with_term, -> (term) {
-    term_query = "%#{term}%"
+  scope :with_term, -> (all_terms) {
+
+    terms = all_terms.split(' ')
     where(
-      'lower(title) like lower(?) OR
-      lower(author) like lower(?) OR
-      lower(content) like lower(?)',
-      term_query, term_query, term_query
+      terms.count.times.map do
+        '(lower(title) like lower(?) OR
+        lower(author) like lower(?) OR
+        lower(content) like lower(?))'
+      end.join(' AND '),
+      *(terms.flat_map do |term|
+        3.times.map { term_to_query term }
+      end)
     )
   }
 
