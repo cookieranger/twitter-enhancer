@@ -1,24 +1,23 @@
-# README
+# Steps
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> yarn
 
-Things you may want to cover:
+> bundle install
 
-* Ruby version
+> bundle exec rake db:create db:migrate db:seed
 
-* System dependencies
+> foreman start -p 3002
 
-* Configuration
+**open up `http://localhost:3002`, you can search by space delimited `title`, `hashtags` or `content`**
 
-* Database creation
+### e.g.
 
-* Database initialization
+```
+Search: jakku soluta
+```
 
-* How to run the test suite
+will match
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+this is a fake sentence, **_soluta_**. **_#Jakku_**
+```
