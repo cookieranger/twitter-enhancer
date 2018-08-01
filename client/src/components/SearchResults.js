@@ -2,32 +2,6 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 
-const expand = n => [...Array(n).keys()];
-
-// NOTE: not using
-const Pagination = ({ allPages, currentPage }) => {
-  return (
-    <div className="Pagination center pb1">
-      {expand(allPages)
-        .map(page => +page + 1)
-        .map(page => (
-          <Button
-            color={currentPage === page ? "primary" : "default"}
-            mini
-            key={page}
-            variant="fab"
-            classes={{
-              root: `i-mx0_5 ${currentPage === page ? "inactive" : ""}`
-            }}
-            style={{ width: 20, height: 20, minHeight: 20 }}
-          >
-            {page}
-          </Button>
-        ))}
-    </div>
-  );
-};
-
 const SearchResults = ({ results, onClickHashTag }) => {
   return (
     <div className="px2">
@@ -52,7 +26,7 @@ const Result = ({
           @{author} -{" "}
           {moment(created_at)
             .startOf("day")
-            .calendar()}
+            .fromNow()}
         </i>
       </div>
       <br />

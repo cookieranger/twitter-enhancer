@@ -15,7 +15,11 @@ import SearchResults from "./components/SearchResults";
 import { fetchSearch } from "./requests";
 import Tweet from "./models/tweet";
 
-const expand = n => [...Array(n).keys()];
+const extractHashtags = results =>
+  _.flatten(results.map(r => r.hashtags)).reduce((accu, tag) => {
+    accu[tag] = accu[tag] ? accu[tag] + 1 : 1;
+    return accu;
+  }, {});
 
 class App extends Component {
   constructor(props) {
@@ -26,16 +30,10 @@ class App extends Component {
       hashtags: {}
     };
     this.handleSearch = _.debounce(searchTerm => {
-      fetchSearch({ searchTerm }).then(result => {
-        console.log("***search reslult: ", result);
+      fetchSearch({ searchTerm }).then(results => {
         this.setState({
-          searchResults: result.map(tweetJson => new Tweet(tweetJson)),
-          hashtags: _
-            .flatten(result.map(r => r.hashtags))
-            .reduce((accu, tag) => {
-              accu[tag] = accu[tag] ? accu[tag] + 1 : 1;
-              return accu;
-            }, {})
+          searchResults: results.map(tweetJson => new Tweet(tweetJson)),
+          hashtags: extractHashtags(results)
         });
       }, console.error);
     }, 500);
